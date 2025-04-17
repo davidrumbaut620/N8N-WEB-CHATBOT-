@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N8N Web Chatbot - Documentación</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://davidrumbaut620.github.io/N8N-WEB-CHATBOT-/chatbot.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #3564ff;
+            --secondary-color: #5d26f6;
+            --accent-color: #4a61e2;
+            --text-color: #333;
+            --light-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --code-bg: #f1f5f9;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-header img {
+            max-width: 80%;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            background-color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--accent-color);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-item {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        .config-table th, .config-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .config-table th {
+            background-color: var(--light-bg);
+            font-weight: 600;
+        }
+
+        .config-table tr:hover {
+            background-color: var(--light-bg);
+        }
+
+        .troubleshooting-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .troubleshooting-item:last-child {
+            border-bottom: none;
+        }
+
+        .troubleshooting-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .troubleshooting-item ul {
+            margin-left: 1.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .demo-image {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1.5rem 0;
+        }
+
+        .close-button {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .close-button {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .menu-button {
+                display: block;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                background-color: var(--primary-color);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 999;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .live-demo {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .demo-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .demo-button:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+    <script type="module">
+        import { createChat } from 'https://davidrumbaut620.github.io/N8N-WEB-CHATBOT-/chatbot.js';
+
+        createChat({
+            webhookUrl: 'https://n8n-production-b68b.up.railway.app/webhook/c19eb0d9-810c-4d81-bbb7-8bdc65573766/chat',
+            showWindowCloseButton: true
+        });
+    </script>
+</head>
+<body>
+    <button class="menu-button" id="menuButton">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <button class="close-button" id="closeButton">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="sidebar-header">
+                <img src="https://raw.githubusercontent.com/davidrumbaut620/SecureUpload-Flask-Server/refs/heads/main/shot_transparent.png" alt="N8N Web Chatbot Logo">
+                <h2>N8N Web Chatbot</h2>
+                <p>Documentación completa</p>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#overview"><i class="fas fa-home"></i> Descripción general</a></li>
+                <li><a href="#features"><i class="fas fa-star"></i> Características</a></li>
+                <li><a href="#prerequisites"><i class="fas fa-clipboard-check"></i> Requisitos previos</a></li>
+                <li><a href="#quick-start"><i class="fas fa-bolt"></i> Inicio rápido</a></li>
+                <li><a href="#installation"><i class="fas fa-download"></i> Opciones de instalación</a></li>
+                <li><a href="#configuration"><i class="fas fa-cogs"></i> Configuración</a></li>
+                <li><a href="#advanced"><i class="fas fa-sliders-h"></i> Opciones avanzadas</a></li>
+                <li><a href="#deployment"><i class="fas fa-rocket"></i> Despliegue</a></li>
+                <li><a href="#troubleshooting"><i class="fas fa-wrench"></i> Solución de problemas</a></li>
+                <li><a href="#contributing"><i class="fas fa-code-branch"></i> Contribuciones</a></li>
+                <li><a href="#license"><i class="fas fa-file-contract"></i> Licencia</a></li>
+                <li><a href="#support"><i class="fas fa-headset"></i> Soporte</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <section class="section" id="overview">
+                <h1>N8N Web Chatbot Integration Guide 🤖</h1>
+                <img src="https://raw.githubusercontent.com/davidrumbaut620/SecureUpload-Flask-Server/refs/heads/main/shot_transparent.png" alt="Chatbot Demo" class="demo-image">
+                <p>Esta integración de chatbot te permite añadir fácilmente una interfaz de chat personalizable a tu sitio web, impulsada por flujos de trabajo de n8n.</p>
+
+                <div class="live-demo">
+                    <h3>¡Prueba el chatbot en vivo!</h3>
+                    <p>Haz clic en el icono de chat en la esquina inferior derecha para ver el chatbot en acción.</p>
+                </div>
+            </section>
+
+            <section class="section" id="features">
+                <h2>Características</h2>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-comments"></i>
+                        <h4>Interfaz de chat en tiempo real</h4>
+                        <p>Comunicación fluida y en tiempo real con tus usuarios.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-window-maximize"></i>
+                        <h4>Modos ventana y pantalla completa</h4>
+                        <p>Flexibilidad para mostrar el chat como prefieras.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4>Apariencia personalizable</h4>
+                        <p>Adapta el diseño a la estética de tu sitio web.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-plug"></i>
+                        <h4>Fácil integración con n8n</h4>
+                        <p>Conecta con tus flujos de trabajo existentes.</p>
+                    </div>
+
+                    <div class="feature-item">
+                        <i class="fas fa-globe"></i>
+                        <h4>Compatibilidad con múltiples navegadores</h4>
+                        <p>Funciona en todos los navegadores modernos.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="prerequisites">
+                <h2>Requisitos previos</h2>
+                <ul>
+                    <li>Una instancia activa de n8n con un webhook configurado</li>
+                    <li>Un servidor web para alojar tu sitio</li>
+                    <li>Conocimientos básicos de HTML</li>
+                </ul>
+            </section>
+
+            <section class="section" id="quick-start">
+                <h2>Inicio rápido</h2>
+                <p>Añade este código a la sección <code>&lt;head&gt;</code> de tu HTML:</p>
+                <pre><code>&lt;link href="https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/chatbot.css" rel="stylesheet" /&gt;
+&lt;script type="module"&gt;
+    import { createChat } from 'https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/chatbot.js';
+
+    createChat({
+        webhookUrl: 'TU_URL_DE_WEBHOOK_AQUÍ',
+        showWindowCloseButton: true
+    });
+&lt;/script&gt;</code></pre>
+            </section>
+
+            <section class="section" id="installation">
+                <h2>Opciones de instalación</h2>
+
+                <h3>Opción 1: Integración directa</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi Sitio con Chatbot&lt;/title&gt;
+    &lt;link href="https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/chatbot.css" rel="stylesheet" /&gt;
+    &lt;script type="module"&gt;
+        import { createChat } from 'https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/chatbot.js';
+
+        createChat({
+            webhookUrl: 'https://n8n-production-b68b.up.railway.app/webhook/tu-id-único/chat',
+            showWindowCloseButton: true
+        });
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Contenido de tu sitio web aquí --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+                <h3>Opción 2: Instalación NPM</h3>
+                <p>Próximamente...</p>
+            </section>
+
+            <section class="section" id="configuration">
+                <h2>Configuración</h2>
+
+                <h3>Opciones de configuración básicas</h3>
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>Opción</th>
+                            <th>Descripción</th>
+                            <th>Valor predeterminado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>webhookUrl</code></td>
+                            <td>Tu URL de webhook de n8n</td>
+                            <td>Requerido</td>
+                        </tr>
+                        <tr>
+                            <td><code>showWindowCloseButton</code></td>
+                            <td>Mostrar/ocultar botón de cerrar</td>
+                            <td><code>true</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>mode</code></td>
+                            <td>Modo de visualización (<code>"window"</code> o <code>"fullscreen"</code>)</td>
+                            <td><code>"window"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>title</code></td>
+                            <td>Título de la ventana del chatbot</td>
+                            <td><code>"Chat"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="advanced">
+                <h2>Configuración avanzada</h2>
+                <pre><code>createChat({
+    webhookUrl: 'TU_URL_DE_WEBHOOK_AQUÍ',
+    showWindowCloseButton: true,
+    mode: 'window',
+    title: 'Atención al cliente',
+    defaultLanguage: 'es',
+    showWelcomeScreen: true,
+    initialMessages: [
+        "¡Hola! ¿En qué puedo ayudarte hoy?"
+    ],
+    i18n: {
+        es: {
+            title: "Chat de soporte",
+            subtitle: "Estamos aquí para ayudarte 24/7",
+            inputPlaceholder: "Escribe tu mensaje..."
+        }
+    }
+});</code></pre>
+            </section>
+
+            <section class="section" id="deployment">
+                <h2>Despliegue</h2>
+
+                <h3>Despliegue en Railway</h3>
+                <p>Puedes desplegar esta aplicación <strong>gratis</strong> en <a href="https://railway.com?referralCode=d6fSsy" target="_blank">Railway</a>. Railway ofrece:</p>
+                <ul>
+                    <li>Fácil despliegue de servidores Flask</li>
+                    <li>$5 de crédito gratis para nuevas cuentas</li>
+                    <li>Proceso de configuración simple</li>
+                </ul>
+                <img src="https://raw.githubusercontent.com/davidrumbaut620/SecureUpload-Flask-Server/refs/heads/main/Railway_web.png" alt="Railway Platform" class="demo-image">
+            </section>
+
+            <section class="section" id="troubleshooting">
+                <h2>Solución de problemas</h2>
+
+                <h3>Problemas comunes</h3>
+
+                <div class="troubleshooting-item">
+                    <h4>Webhook no funciona</h4>
+                    <ul>
+                        <li>Verifica que la URL del webhook sea correcta</li>
+                        <li>Comprueba si la instancia de n8n está en ejecución</li>
+                        <li>Revisa la consola del navegador para ver errores</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshooting-item">
+                    <h4>Problemas de estilo</h4>
+                    <ul>
+                        <li>Asegúrate de que el archivo CSS se cargue correctamente</li>
+                        <li>Comprueba si hay conflictos CSS con tu sitio web</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshooting-item">
+                    <h4>Problemas de integración</h4>
+                    <ul>
+                        <li>Verifica que todas las etiquetas de script estén en la sección <code>&lt;head&gt;</code></li>
+                        <li>Comprueba si hay errores en la consola de JavaScript</li>
+                        <li>Asegúrate de que la carga del módulo sea correcta</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section" id="contributing">
+                <h2>Contribuciones</h2>
+                <p>¡Damos la bienvenida a las contribuciones! Para contribuir:</p>
+                <ol>
+                    <li>Haz un fork del repositorio</li>
+                    <li>Crea tu rama de características</li>
+                    <li>Envía un pull request</li>
+                </ol>
+            </section>
+
+            <section class="section" id="license">
+                <h2>Licencia</h2>
+                <p>Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo <a href="LICENSE">LICENSE</a> para más detalles.</p>
+            </section>
+
+            <section class="section" id="support">
+                <h2>Soporte</h2>
+                <p>¿Necesitas ayuda? Contáctanos:</p>
+                <ul>
+                    <li>📧 Email: <a href="mailto:contact@davidrt.xyz">contact@davidrt.xyz</a></li>
+                    <li>🌐 Sitio web: <a href="https://davidrt.xyz/" target="_blank">https://davidrt.xyz/</a></li>
+                </ul>
+            </section>
+
+            <footer class="footer">
+                <p>Hecho con ❤️ por <a href="https://davidrt.xyz/" target="_blank">David RT</a></p>
+                <p>&copy; 2025 David RT. Todos los derechos reservados.</p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Funcionalidad para el menú móvil
+        const menuButton = document.getElementById('menuButton');
+        const closeButton = document.getElementById('closeButton');
+        const sidebar = document.getElementById('sidebar');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        closeButton.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Cerrar el menú al hacer clic en un enlace (en móvil)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Smooth scroll para los enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
