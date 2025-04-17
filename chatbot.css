@@ -385,6 +385,10 @@
     right: 1rem;
   }
 
+  .chat-inputs textarea::-webkit-scrollbar {
+    display: none;
+}
+
   .chat-input-send-button {
     height: var(--chat--textarea--height);
     width: var(--chat--textarea--height);
