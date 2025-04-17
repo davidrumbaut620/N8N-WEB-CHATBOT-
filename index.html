@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +8,13 @@
     <link href="https://davidrumbaut620.github.io/N8N-WEB-CHATBOT-/chatbot.css" rel="stylesheet" />
     <style>
         :root {
-            --primary-color: #3564ff;
-            --secondary-color: #5d26f6;
-            --accent-color: #4a61e2;
-            --text-color: #333;
-            --light-bg: #f8fafc;
-            --border-color: #e2e8f0;
-            --code-bg: #f1f5f9;
+            --primary-color: #0071e3;
+            --secondary-color: #1f6dff;
+            --accent-color: #06c;
+            --text-color: #1d1d1f;
+            --light-bg: #f5f5f7;
+            --border-color: #d2d2d7;
+            --code-bg: #f5f5f7;
             --sidebar-width: 280px;
         }
 
@@ -24,11 +24,16 @@
             box-sizing: border-box;
         }
 
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.47059;
+            letter-spacing: -0.022em;
             color: var(--text-color);
             background-color: var(--light-bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
@@ -72,6 +77,7 @@
 
         .nav-links {
             list-style: none;
+            margin-bottom: 2rem;
         }
 
         .nav-links li {
@@ -249,15 +255,26 @@
         }
 
         .close-button {
-            display: none;
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: none;
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            z-index: 1001;
+        }
+
+        .close-button:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         @media (max-width: 1024px) {
@@ -276,7 +293,7 @@
             }
 
             .close-button {
-                display: block;
+                display: flex;
             }
 
             .menu-button {
@@ -284,16 +301,26 @@
                 position: fixed;
                 top: 1rem;
                 left: 1rem;
-                background-color: var(--primary-color);
-                color: white;
-                border: none;
+                background-color: var(--light-bg);
+                color: var(--primary-color);
+                border: 1px solid var(--border-color);
                 border-radius: 50%;
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
                 cursor: pointer;
                 z-index: 999;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .menu-button:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: scale(1.05);
             }
         }
 
@@ -598,23 +625,36 @@
 
     <script>
         // Funcionalidad para el menú móvil
-        const menuButton = document.getElementById('menuButton');
-        const closeButton = document.getElementById('closeButton');
-        const sidebar = document.getElementById('sidebar');
-        const navLinks = document.querySelectorAll('.nav-links a');
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.getElementById('menuButton');
+            const closeButton = document.getElementById('closeButton');
+            const sidebar = document.getElementById('sidebar');
+            const navLinks = document.querySelectorAll('.nav-links a');
 
-        menuButton.addEventListener('click', () => {
-            sidebar.classList.add('active');
-        });
+            // Abrir el menú
+            menuButton.addEventListener('click', function() {
+                sidebar.classList.add('active');
+                console.log('Menu opened');
+            });
 
-        closeButton.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-        });
+            // Cerrar el menú
+            closeButton.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                console.log('Menu closed');
+            });
 
-        // Cerrar el menú al hacer clic en un enlace (en móvil)
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 1024) {
+            // Cerrar el menú al hacer clic en un enlace (en móvil)
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 1024) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+
+            // Cerrar el menú al hacer clic fuera del sidebar
+            document.addEventListener('click', function(event) {
+                if (!sidebar.contains(event.target) && !menuButton.contains(event.target) && sidebar.classList.contains('active')) {
                     sidebar.classList.remove('active');
                 }
             });
