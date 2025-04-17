@@ -1,85 +1,159 @@
-# Guía de Implementación del Chatbot
+# N8N Web Chatbot Integration Guide 🤖
 
-Esta guía explica cómo implementar fácilmente el chatbot en tu sitio web.
+![Chatbot Demo](https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/shot.png)
 
-## Requisitos previos
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Installation Options](#installation-options)
+- [Configuration](#configuration)
+- [Advanced Options](#advanced-options)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Un webhook de n8n configurado para tu chatbot
-- Un servidor web para alojar tu sitio
+## Overview
+This chatbot integration allows you to easily add a customizable chat interface to your website, powered by n8n workflows.
 
-## Pasos para la implementación
+## Features
+- 💬 Real-time chat interface
+- 🖼️ Window and fullscreen modes
+- 🎨 Customizable appearance
+- 🔌 Easy integration with n8n
+- 🌐 Cross-browser compatibility
 
-### 1. Incluye los archivos necesarios
+## Prerequisites
+- An active n8n instance with a configured webhook
+- A web server to host your site
+- Basic knowledge of HTML
 
-Añade los siguientes elementos en la sección `<head>` de tu HTML:
+## Quick Start
+
+1. Add this code to your HTML `<head>` section:
 
 ```html
-<link href="chatbot.css" rel="stylesheet" />
+<link href="https://davidrumbaut620.github.io/N8N-WEB-CHATBOT-/chatbot.css" rel="stylesheet" />
 <script type="module">
-    import { createChat } from 'chatbot.js';
+    import { createChat } from 'https://davidrumbaut620.github.io/N8N-WEB-CHATBOT-/chatbot.js';
 
     createChat({
-        webhookUrl: 'TU_URL_DE_WEBHOOK_AQUÍ',
+        webhookUrl: 'YOUR_WEBHOOK_URL',
         showWindowCloseButton: true
     });
 </script>
 ```
 
-### 2. Personaliza la URL del webhook
+## Demostracion 🤖
+![Chatbot Demo](https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/shot.png)
+[Ver Demo](https://davidrumbaut620.github.io/N8N-WEB-CHATBOT-/)
 
-Lo único que necesitas cambiar es la URL del webhook por la de tu propio chatbot:
+## Installation Options
 
-```javascript
-webhookUrl: 'TU_URL_DE_WEBHOOK_AQUÍ'
-```
-
-Por ejemplo:
-```javascript
-webhookUrl: 'https://n8n-production-b68b.up.railway.app/webhook/tu-id-único/chat'
-```
-
-### 3. Opciones adicionales
-
-Puedes personalizar el comportamiento del chatbot con estas opciones:
-
-| Opción | Descripción | Valor predeterminado |
-|--------|-------------|---------------------|
-| `showWindowCloseButton` | Muestra u oculta el botón de cerrar | `true` |
-| `mode` | Modo de visualización (`"window"` o `"fullscreen"`) | `"window"` |
-| `title` | Título del chatbot | `"Chat"` |
-
-## Ejemplo completo
-
+### Option 1: Direct Integration
 ```html
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Sitio con Chatbot</title>
-    <link href="chatbot.css" rel="stylesheet" />
+    <title>My Site with Chatbot</title>
+    <link href="https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/chatbot.css" rel="stylesheet" />
     <script type="module">
-        import { createChat } from 'chatbot.js';
+        import { createChat } from 'https://raw.githubusercontent.com/davidrumbaut620/N8N-WEB-CHATBOT-/refs/heads/main/chatbot.js';
 
         createChat({
-            webhookUrl: 'https://n8n-production-b68b.up.railway.app/webhook/tu-id-único/chat',
+            webhookUrl: 'https://n8n-production-b68b.up.railway.app/webhook/your-unique-id/chat',
             showWindowCloseButton: true
         });
     </script>
 </head>
 <body>
-    <h1>Bienvenido a mi sitio</h1>
-    <p>El chatbot aparecerá automáticamente en la esquina inferior derecha.</p>
+    <!-- Your website content here -->
 </body>
 </html>
 ```
 
-## Solución de problemas
+### Option 2: NPM Installation
+Coming soon...
 
-- Asegúrate de que los archivos `chatbot.js` y `chatbot.css` estén correctamente referenciados
-- Verifica que la URL del webhook sea válida y esté activa
-- Comprueba la consola del navegador para ver posibles errores
+## Configuration
+
+### Basic Configuration Options
+| Option | Description | Default Value |
+|--------|-------------|---------------|
+| `webhookUrl` | Your n8n webhook URL | Required |
+| `showWindowCloseButton` | Show/hide close button | `true` |
+| `mode` | Display mode (`"window"` or `"fullscreen"`) | `"window"` |
+| `title` | Chatbot window title | `"Chat"` |
+
+### Advanced Configuration
+```javascript
+createChat({
+    webhookUrl: 'YOUR_WEBHOOK_URL',
+    showWindowCloseButton: true,
+    mode: 'window',
+    title: 'Customer Support',
+    defaultLanguage: 'en',
+    showWelcomeScreen: true,
+    initialMessages: [
+        "Hi there! How can I help you today?"
+    ],
+    i18n: {
+        en: {
+            title: "Chat Support",
+            subtitle: "We're here to help 24/7",
+            inputPlaceholder: "Type your message..."
+        }
+    }
+});
+```
+
+## Deployment
+
+### Railway Deployment
+You can deploy this application **for free** on [Railway](https://railway.com?referralCode=d6fSsy). Railway offers:
+- Easy Flask server deployment
+- $5 free credit for new accounts
+- Simple setup process
+
+![Railway Platform](https://raw.githubusercontent.com/davidrumbaut620/SecureUpload-Flask-Server/refs/heads/main/Railway_web.png)
+
+## Troubleshooting
+
+### Common Issues
+1. **Webhook Not Working**
+   - Verify the webhook URL is correct
+   - Check if n8n instance is running
+   - Review browser console for errors
+
+2. **Style Issues**
+   - Ensure CSS file is properly loaded
+   - Check for CSS conflicts with your website
+
+3. **Integration Problems**
+   - Verify all script tags are in the `<head>` section
+   - Check for JavaScript console errors
+   - Ensure proper module loading
+
+## Contributing
+We welcome contributions! To contribute:
+1. Fork the repository
+2. Create your feature branch
+3. Submit a pull request
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-¡Y eso es todo! Con estos simples pasos, tendrás tu chatbot funcionando en tu sitio web.
+## Support
+Need help? Contact us:
+- 📧 Email: [contact@davidrt.xyz](mailto:contact@davidrt.xyz)
+- 🌐 Website: [https://davidrt.xyz/](https://davidrt.xyz/)
+
+---
+
+Made with ❤️ by [David RT](https://davidrt.xyz/)
